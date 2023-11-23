@@ -1,4 +1,41 @@
 en:
   js:
-    group-subgroup-automation:
-      title: Automation
+    discourse_automation:
+      triggerables:
+        user_added_to_subgroup:
+          fields:
+            subgroups:
+              label: Subgroups
+        user_removed_from_subgroup:
+          fields:
+            subgroups:
+              label: Subgroups
+        user_added_to_parent_group:
+          fields:
+            parent_group:
+              label: Parent group
+        user_removed_from_parent_group:
+          fields:
+            parent_group:
+              label: Parent group
+      scriptables:
+        user_update_summary_email_options:
+          fields:
+            email_digests:
+              label: Set summary email preference
+        add_user_to_parent_group:
+          fields:
+            parent_group:
+              label: Group to add user to
+        remove_user_from_parent_group:
+          fields:
+            parent_group:
+              label: Group to remove user from
+        add_user_to_subgroups:
+          fields:
+            subgroups:
+              label: Subgroups to add user to
+        remove_user_from_subgroups:
+          fields:
+            subgroups:
+              label: Subgroups to remove user from

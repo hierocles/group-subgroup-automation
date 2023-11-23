@@ -1,0 +1,31 @@
+en:
+  discourse_automation:
+    scriptables:
+      user_update_summary_email_options:
+        title: Update a User's Summary Email Preferences
+        description: Enable or disable a user's Summary Email preferences
+      add_user_to_parent_group:
+        title: Add user to parent group
+        description: Add user to parent group when added to subgroup
+      remove_user_from_parent_group:
+        title: Remove user from parent group
+        description: Remove user from parent group when removed from subgroup
+      add_user_to_subgroups:
+        title: Add user to subgroups
+        description: Add user to subgroups when added to parent group
+      remove_user_from_subgroups:
+        title: Remove user from subgroups
+        description: Remove user from subgroups when removed from parent group
+    triggerables:
+      user_added_to_subgroup:
+        title: User added to subgroup
+        description: Triggered when a user is added to a subgroup
+      user_removed_from_subgroup:
+        title: User removed from subgroup
+        description: Triggered when a user is removed from a subgroup
+      user_added_to_parent_group:
+        title: User added to parent group
+        description: Triggered when a user is added to a parent group
+      user_removed_from_parent_group:
+        title: User removed from parent group
+        description: Triggered when a user is removed from a parent groupW

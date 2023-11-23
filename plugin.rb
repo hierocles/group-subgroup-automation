@@ -142,9 +142,9 @@ after_initialize do
         end
       end
 
-      DiscourseAutomation::Scriptable::ADD_USER_TO_SUBGROUP = "add_user_to_subgroup"
+      DiscourseAutomation::Scriptable::ADD_USER_TO_SUBGROUPS = "add_user_to_subgroups"
       add_automation_scriptable(
-        DiscourseAutomation::Scriptable::ADD_USER_TO_SUBGROUP
+        DiscourseAutomation::Scriptable::ADD_USER_TO_SUBGROUPS
       ) do
         field :subgroups, component: :groups, required: true
         triggerables [:user_added_to_parent_group]
@@ -161,9 +161,9 @@ after_initialize do
         end
       end
 
-      DiscourseAutomation::Scriptable::REMOVE_USER_FROM_SUBGROUP = "remove_user_from_subgroup"
+      DiscourseAutomation::Scriptable::REMOVE_USER_FROM_SUBGROUPS = "remove_user_from_subgroups"
       add_automation_scriptable(
-        DiscourseAutomation::Scriptable::REMOVE_USER_FROM_SUBGROUP
+        DiscourseAutomation::Scriptable::REMOVE_USER_FROM_SUBGROUPS
       ) do
         field :subgroups, component: :groups, required: true
         triggerables [:user_removed_from_parent_group]
