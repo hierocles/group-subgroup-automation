@@ -1,0 +1,3 @@
+plugins:
+  group_subgroup_automation_enabled:
+    default: true
