@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # name: group-subgroup-automation
-# about: Automate group membership via subgroups
+# about: Automate group membership via parent and subgroups
 # version: 0.0.1
-# authors: scossar
+# authors: Dylan Henrich
 
 enabled_site_setting :group_subgroup_automation_enabled
 
@@ -47,7 +47,7 @@ after_initialize do
           end
         end
       end
-      # Note that the `groups` component doesn't exist in the Automation plugin (yet), so this code doesn't work
+
       DiscourseAutomation::Triggerable::USER_ADDED_TO_SUBGROUP = "user_added_to_subgroup"
       add_automation_triggerable(DiscourseAutomation::Triggerable::USER_ADDED_TO_SUBGROUP) do
         field :subgroups, component: :groups, required: true
@@ -71,7 +71,7 @@ after_initialize do
               "placeholders" => {
                 "group_name" => group.name,
               },
-              )
+            )
           end
         end
 
@@ -88,7 +88,7 @@ after_initialize do
               "placeholders" => {
                 "group_name" => group.name,
               },
-              )
+            )
           end
         end
       end
@@ -155,8 +155,13 @@ after_initialize do
           group = Group.find(parent_group_id)
           user = User.find_by(username: username)
           if group && user
-            group.add(user)
-            GroupActionLogger.new(Discourse.system_user, group).log_add_user_to_group(user)
+            other_subgroup_memberships = GroupUser.where(user_id: user.id, group_id: subgroup_ids).pluck(:group_id)
+            subgroups_to_add = subgroup_ids - other_subgroup_memberships
+            subgroups_to_add.each do |subgroup_id|
+              subgroup = Group.find(subgroup_id)
+              subgroup.add(user)
+              GroupActionLogger.new(Discourse.system_user, subgroup).log_add_user_to_group(user)
+           end
           end
         end
       end
@@ -175,8 +180,11 @@ after_initialize do
           user = User.find_by(username: username)
           if group && user
             other_subgroup_memberships = GroupUser.where(user_id: user.id, group_id: subgroup_ids).pluck(:group_id)
-            if other_subgroup_memberships.empty? && group.remove(user)
-              GroupActionLogger.new(Discourse.system_user, group).log_remove_user_from_group(user)
+            subgroups_to_remove = other_subgroup_memberships & subgroup_ids
+            subgroups_to_remove.each do |subgroup_id|
+              subgroup = Group.find(subgroup_id)
+              subgroup.remove(user)
+              GroupActionLogger.new(Discourse.system_user, subgroup).log_remove_user_from_group(user)
             end
           end
         end
